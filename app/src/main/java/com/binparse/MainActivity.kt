@@ -3,22 +3,33 @@ package com.binparse
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import java.lang.Math.log
+
 
 class MainActivity : AppCompatActivity() {
 
-    var JsonData = JSONObject()
-    var Infobin = InfoBin()
+    var InfoBin = ArrayList<InfoBin>();
+    var listAdapter = ListAdapter(this@MainActivity,InfoBin)
 
+    private lateinit var listViewBin: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var enterButton : Button = findViewById(R.id.enterButton)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//для корректного применения темы
+
+        val enterButton : Button = findViewById(R.id.enterButton)
+        listViewBin = findViewById(R.id.listview) // находим список
+
+        listAdapter = ListAdapter(this@MainActivity,InfoBin)//передаем аргументы в адаптер
+        listViewBin.adapter = listAdapter
+
+
         enterButton.setOnClickListener {
             val inputBinNum: EditText = findViewById(R.id.inputBinNum);
             val num = inputBinNum.text.toString().toUInt();
@@ -35,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateBin(num: UInt) {
         val client = OkHttpClient()
         val request: Request = Request.Builder()
-            //.url("https://lookup.binlist.net/$num")
-            .url("https://lookup.binlist.net/45332")
+            .url("https://lookup.binlist.net/$num")
+            //.url("https://lookup.binlist.net/45332")
             .get()
             .addHeader("X-RapidAPI-Key", "SIGN-UP-FOR-KEY")
             .build()
@@ -50,10 +61,14 @@ class MainActivity : AppCompatActivity() {
                         throw IOException("Unexpected code $response")
                     }
                     else {
-                        var str = response.body()!!.string()
-                        //var Infobin = InfoBin();
-                        JsonData = JSONObject(str)
-                        Infobin.updateBin(JsonData)//получили 1 элемент списка
+                        val str = response.body()!!.string()
+                        val jsonData = JSONObject(str)
+                        val infobin = InfoBin();
+                        infobin.updateBin(jsonData)
+                        InfoBin.add(infobin)
+                        runOnUiThread {
+                            listAdapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }

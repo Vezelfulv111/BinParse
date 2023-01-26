@@ -3,17 +3,17 @@ package com.binparse
 import org.json.JSONObject
 
 class InfoBin() {
-    var scheme: String = ""
-    var type: String = ""
+    var scheme: String = "?"
+    var type: String = "?"
 
-    var brand: String = "";
-    var prepaid: String = "";
+    var brand: String = "?";
+    var prepaid: String = "?";
 
-    var length: String = "";
-    var luhn: String = "";
+    var length: String = "?"
+    var luhn: String = "?";
 
-    var coutryName: String = "";
-    var coordinates: String = "";
+    var coutryName: String = "?";
+    var coordinates: String = "?";
 
     var bankname: String = "?";
     var url: String = "?";

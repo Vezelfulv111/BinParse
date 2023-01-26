@@ -1,26 +1,28 @@
 package com.binparse
 
 import org.json.JSONObject
+import java.io.Serializable
 
-class InfoBin() {
+//Сериализация добавлена для записи и чтения из файла
+class InfoBin() : Serializable {
     var scheme: String = "?"
     var type: String = "?"
 
-    var brand: String = "?";
-    var prepaid: String = "?";
+    var brand: String = "?"
+    var prepaid: String = "?"
 
     var length: String = "?"
-    var luhn: String = "?";
+    var luhn: String = "?"
 
-    var coutryName: String = "?";
-    var coordinates: String = "?";
+    var coutryName: String = "?"
+    var coordinates: String = "?"
 
-    var bankname: String = "?";
-    var url: String = "?";
-    var phone: String = "?";
+    var bankname: String = "?"
+    var url: String = "?"
+    var phone: String = "?"
 
-    private var latitude ="";
-    private var longitude ="";
+    private var latitude =""
+    private var longitude =""
 
     //функция для того чтобы распарсить массив
     fun updateBin(Data: JSONObject) {

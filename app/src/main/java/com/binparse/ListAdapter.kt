@@ -21,7 +21,7 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent:ViewGroup?): View? {
+    override fun getView(position: Int, convertView: View?, parent:ViewGroup?): View {
         var convertView: View? = convertView
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_element, parent, false)

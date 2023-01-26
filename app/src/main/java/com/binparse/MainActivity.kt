@@ -1,38 +1,35 @@
 package com.binparse
 
+import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import okhttp3.*
 import org.json.JSONObject
-import java.io.IOException
+import java.io.*
+
 
 
 class MainActivity : AppCompatActivity() {
-
-    var InfoBin = ArrayList<InfoBin>();
-    var listAdapter = ListAdapter(this@MainActivity,InfoBin)
-
-
+    var infoBin = ArrayList<InfoBin>()
+    var listAdapter = ListAdapter(this@MainActivity,infoBin)
     private lateinit var listViewBin: ListView
+    private val binFileName = "BinFile.dac"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);//для корректного применения темы
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)//для корректного применения темы
         listViewBin = findViewById(R.id.listview) // находим список
-        listAdapter = ListAdapter(this@MainActivity,InfoBin)//передаем аргументы в адаптер
+
+        readFromFile(binFileName)//функция чтения из файла
+        listAdapter = ListAdapter(this@MainActivity,infoBin)//передаем аргументы в адаптер
         listViewBin.adapter = listAdapter
 
         val enterButton : Button = findViewById(R.id.enterButton)//кнопка для добавления элемента в спиоск
         enterButton.setOnClickListener {
-            val inputBinNum: EditText = findViewById(R.id.inputBinNum);
-            val num = inputBinNum.text.toString().toUInt();
+            val inputBinNum: EditText = findViewById(R.id.inputBinNum)
+            val num = inputBinNum.text.toString().toUInt()
             if (num.toString().length == 6) { //проверим, что число 6тизначное
                 updateBin(num)
             }
@@ -44,8 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         val delButton : ImageButton = findViewById(R.id.delButton)//кнопка для очищения списка
         delButton.setOnClickListener {
-            InfoBin.clear();
+            infoBin.clear()
             listAdapter.notifyDataSetChanged()
+            writetoFile(binFileName, infoBin)
             val toast = Toast.makeText(applicationContext, "История запросов очищена", Toast.LENGTH_SHORT)
             toast.show()
         }
@@ -72,17 +70,35 @@ class MainActivity : AppCompatActivity() {
                     else {
                         val str = response.body()!!.string()
                         val jsonData = JSONObject(str)
-                        val infobin = InfoBin();
-                        infobin.updateBin(jsonData)//парсим данные json
-                        InfoBin.add(infobin)//добавляем данные в ArrayList
-                        runOnUiThread {
+                        val infobin2 = InfoBin()
+                        infobin2.updateBin(jsonData)//парсим данные json
+                        infoBin.add(infobin2)//добавляем данные в ArrayList
+                        runOnUiThread {//запуск в основном потоке
                             listAdapter.notifyDataSetChanged()
+                            writetoFile(binFileName, infoBin)
                         }
                     }
                 }
             }
         })
 
+    }
+    private fun readFromFile(BinFileName: String) {
+        val file = File(this.filesDir, BinFileName)
+        if (file.exists()) {
+            val fis: FileInputStream = openFileInput(BinFileName)
+            val iss = ObjectInputStream(fis)
+            infoBin = iss.readObject() as ArrayList<InfoBin>
+            iss.close()
+            fis.close()
+        }
+    }
+    private fun writetoFile(BinFileName: String, infoBin: ArrayList<InfoBin>) {
+        val fos: FileOutputStream = openFileOutput(BinFileName, Context.MODE_PRIVATE)
+        val os = ObjectOutputStream(fos)
+        os.writeObject(infoBin)
+        os.close()
+        fos.close()
     }
 
 }

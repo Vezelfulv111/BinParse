@@ -6,8 +6,10 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import java.util.*
+import android.widget.BaseAdapter
+import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
+
 
 class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAdapter() {
 
@@ -64,6 +66,19 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
                 val number = items[position].phone
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:$number")
+                context.startActivity(intent)
+            }
+        }
+
+        //переход на сайт банка
+        link.setOnClickListener() {
+            if (items[position].url != "?" && items[position].url.isNotEmpty()) {
+                var url =  items[position].url
+                if (!url.startsWith("https://") && !url.startsWith("http://")) {//проверка на тип ссылки
+                    url = "http://$url";
+                }
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
                 context.startActivity(intent)
             }
         }

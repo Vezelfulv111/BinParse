@@ -210,7 +210,17 @@
                 android:id="@+id/Link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="www.jyskebank.dk" />
+                android:layout_marginTop="15dp"
+                android:text="www.jyskebank.dk"
+                android:textColor="#0547B3"
+                android:focusable="false"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Phone:" />
 
             <TextView
                 android:id="@+id/Phone"

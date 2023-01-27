@@ -10,7 +10,6 @@ import org.json.JSONObject
 import java.io.*
 
 
-
 class MainActivity : AppCompatActivity() {
     var infoBin = ArrayList<InfoBin>()
     var listAdapter = ListAdapter(this@MainActivity,infoBin)
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         enterButton.setOnClickListener {
             val inputBinNum: EditText = findViewById(R.id.inputBinNum)
             val num = inputBinNum.text.toString().toUInt()
-            if (num.toString().length == 6) { //проверим, что число 6тизначное
+            if (num.toString().isNotEmpty()) { //проверим, что число не равно нулю
                 updateBin(num)
             }
             else{//если некоррекный номер карты выводится сообщение об этом
@@ -83,12 +82,14 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-    private fun readFromFile(BinFileName: String) {
+    private fun readFromFile(BinFileName: String)  {
         val file = File(this.filesDir, BinFileName)
         if (file.exists()) {
             val fis: FileInputStream = openFileInput(BinFileName)
             val iss = ObjectInputStream(fis)
+
             infoBin = iss.readObject() as ArrayList<InfoBin>
+
             iss.close()
             fis.close()
         }

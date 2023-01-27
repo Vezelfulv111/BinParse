@@ -1,6 +1,8 @@
 package com.binparse
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +57,18 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
         link.text = items[position].url
         val phone = convertView.findViewById(R.id.Phone) as TextView
         phone.text = items[position].phone
+
+        //переход в "звонилку"
+        phone.setOnClickListener() {
+            if (items[position].phone != "?" && items[position].phone.isNotEmpty()) {
+                val number = items[position].phone
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:$number")
+                context.startActivity(intent)
+            }
+        }
+
+
 
         return convertView
     }

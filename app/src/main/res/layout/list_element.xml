@@ -88,6 +88,8 @@
                     android:id="@+id/Brand_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="2"
                     android:text="@string/brand"
                     android:textStyle="bold" />
 
@@ -178,6 +180,7 @@
                         android:id="@+id/Country_i"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autoSizeTextType="uniform"
                         android:text="@string/country"
                         android:textStyle="bold" />
 
@@ -210,6 +213,9 @@
                 android:id="@+id/Bank_i"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:autoText="false"
+                android:maxLines="2"
                 android:text="@string/bank"
                 android:textStyle="bold" />
 
@@ -218,6 +224,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:autoSizeTextType="uniform"
                 android:focusable="false"
                 android:text="@string/url"
                 android:textColor="#0547B3" />

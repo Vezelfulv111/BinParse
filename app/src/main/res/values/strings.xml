@@ -2,7 +2,7 @@
     <string name="app_name">BinParse</string>
 
     <string name="storageName">BinFile.dac</string>
-    <string name="coordinates">(latitude: 56, \n longitude: 10)</string>
+    <string name="coordinates">latitude: 56, \n longitude: 10</string>
     <string name="country">🇩🇰 Denmark</string>
     <string name="luhn">Yes/No</string>
     <string name="cardlength">16</string>

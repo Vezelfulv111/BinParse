@@ -11,8 +11,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,14 +24,17 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="137dp"
-            android:src="@drawable/bin_credit_card"
-            android:contentDescription="@string/bincardimage" />
+            android:contentDescription="@string/bincardimage"
+            android:src="@drawable/bin_credit_card" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autoSizeTextType="uniform"
+            android:autoText="false"
+            android:maxLines="1"
             android:text="@string/HintWhatToDo"
             android:textSize="18sp" />
 
@@ -66,10 +69,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="0.3"
                 android:background="@null"
+                android:contentDescription="@string/deleteimage"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                app:srcCompat="@android:drawable/btn_dialog"
-                android:contentDescription="@string/deleteimage" />
+                app:srcCompat="@android:drawable/btn_dialog" />
 
         </LinearLayout>
 

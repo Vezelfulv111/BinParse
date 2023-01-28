@@ -24,14 +24,15 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="137dp"
-            android:src="@drawable/bin_credit_card" />
+            android:src="@drawable/bin_credit_card"
+            android:contentDescription="@string/bincardimage" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Введите Bin карты - первые цифры:"
+            android:text="@string/HintWhatToDo"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="123456"
+                android:hint="@string/hint_edittext"
                 android:inputType="numberSigned"
                 android:maxLength="14"
                 android:maxLines="1"
@@ -54,9 +55,9 @@
                 android:id="@+id/enterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="0.2"
-                android:text="Ввод" />
+                android:text="@string/Button_enter" />
 
             <ImageButton
                 android:id="@+id/delButton"
@@ -67,7 +68,8 @@
                 android:background="@null"
                 android:scaleX="1.4"
                 android:scaleY="1.4"
-                app:srcCompat="@android:drawable/btn_dialog" />
+                app:srcCompat="@android:drawable/btn_dialog"
+                android:contentDescription="@string/deleteimage" />
 
         </LinearLayout>
 

@@ -11,18 +11,15 @@ import java.io.*
 
 
 class MainActivity : AppCompatActivity() {
-    var infoBin = ArrayList<InfoBin>()
-    var listAdapter = ListAdapter(this@MainActivity,infoBin)
-    private lateinit var listViewBin: ListView
-    private val binFileName = "BinFile.dac"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)//для корректного применения темы
-        listViewBin = findViewById(R.id.listview) // находим список
 
-        readFromFile(binFileName)//функция чтения из файла
-        listAdapter = ListAdapter(this@MainActivity,infoBin)//передаем аргументы в адаптер
+        val infoBin = readFromFile(resources.getString(R.string.storageName))//читаем данные из файла
+        val listAdapter = ListAdapter(this@MainActivity,infoBin)//передаем аргументы в адаптер
+
+        val listViewBin : ListView = findViewById(R.id.listview) // находим список
         listViewBin.adapter = listAdapter
 
         val enterButton : Button = findViewById(R.id.enterButton)//кнопка для добавления элемента в спиоск
@@ -30,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             val inputBinNum: EditText = findViewById(R.id.inputBinNum)
             val num = inputBinNum.text.toString().toUInt()
             if (num.toString().isNotEmpty()) { //проверим, что число не равно нулю
-                updateBin(num)
+                updateBin(num, infoBin, listAdapter)
             }
             else{//если некоррекный номер карты выводится сообщение об этом
                 val toast = Toast.makeText(applicationContext, "Число должно состоять из 6 цифр!", Toast.LENGTH_SHORT)
@@ -42,14 +39,14 @@ class MainActivity : AppCompatActivity() {
         delButton.setOnClickListener {
             infoBin.clear()
             listAdapter.notifyDataSetChanged()
-            writetoFile(binFileName, infoBin)
+            writetoFile(resources.getString(R.string.storageName), infoBin)
             val toast = Toast.makeText(applicationContext, "История запросов очищена", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
 
     //функция для обработки API запроса
-    private fun updateBin(num: UInt) {
+    private fun updateBin(num: UInt, infoBin: ArrayList<InfoBin>, listAdapter: ListAdapter) {
         val client = OkHttpClient()
         val request: Request = Request.Builder()
             .url("https://lookup.binlist.net/$num")
@@ -74,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                         infoBin.add(infobin2)//добавляем данные в ArrayList
                         runOnUiThread {//запуск в основном потоке
                             listAdapter.notifyDataSetChanged()
-                            writetoFile(binFileName, infoBin)
+                            writetoFile(resources.getString(R.string.storageName), infoBin)
                         }
                     }
                 }
@@ -82,17 +79,17 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-    private fun readFromFile(BinFileName: String)  {
+    private fun readFromFile(BinFileName: String) : ArrayList<InfoBin> {
+        var infoBin =  ArrayList<InfoBin>()
         val file = File(this.filesDir, BinFileName)
         if (file.exists()) {
             val fis: FileInputStream = openFileInput(BinFileName)
             val iss = ObjectInputStream(fis)
-
             infoBin = iss.readObject() as ArrayList<InfoBin>
-
             iss.close()
             fis.close()
         }
+        return infoBin
     }
     private fun writetoFile(BinFileName: String, infoBin: ArrayList<InfoBin>) {
         val fos: FileOutputStream = openFileOutput(BinFileName, Context.MODE_PRIVATE)

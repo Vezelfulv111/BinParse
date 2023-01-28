@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="5dp"
+        android:paddingEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,13 +33,13 @@
                     android:id="@+id/Scheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Scheme" />
+                    android:text="@string/scheme_name" />
 
                 <TextView
                     android:id="@+id/Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Type" />
+                    android:text="@string/type_name" />
             </TableRow>
 
             <TableRow
@@ -49,14 +50,14 @@
                     android:id="@+id/Scheme_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Visa"
+                    android:text="@string/scheme_visa"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/Type_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Debit/Credit"
+                    android:text="@string/type"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -70,13 +71,13 @@
                     android:id="@+id/Brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Brand" />
+                    android:text="@string/brand_name" />
 
                 <TextView
                     android:id="@+id/Prepaired"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Prepaired" />
+                    android:text="@string/prepaired_name" />
             </TableRow>
 
             <TableRow
@@ -87,14 +88,14 @@
                     android:id="@+id/Brand_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Visa/Dankort"
+                    android:text="@string/brand"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/Prepaired_i"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="yes/no"
+                    android:text="@string/prepaired"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -107,13 +108,13 @@
                     android:id="@+id/CardNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CardNumber" />
+                    android:text="@string/cardnumber" />
 
                 <TextView
                     android:id="@+id/Country"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="County" />
+                    android:text="@string/county_name" />
             </TableRow>
 
             <TableRow
@@ -124,6 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
+                    android:paddingStart="0dp"
                     android:paddingEnd="10dp">
 
                     <TableRow
@@ -134,14 +136,15 @@
                             android:id="@+id/Length"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingStart="0dp"
                             android:paddingEnd="4dp"
-                            android:text="Length" />
+                            android:text="@string/length_name" />
 
                         <TextView
                             android:id="@+id/Luhn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Luhn" />
+                            android:text="@string/luhn_name" />
 
                     </TableRow>
 
@@ -153,14 +156,14 @@
                             android:id="@+id/Length_i"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="16"
+                            android:text="@string/cardlength"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/Luhn_i"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Yes/No"
+                            android:text="@string/luhn"
                             android:textStyle="bold" />
                     </TableRow>
 
@@ -175,7 +178,7 @@
                         android:id="@+id/Country_i"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="🇩🇰 Denmark"
+                        android:text="@string/country"
                         android:textStyle="bold" />
 
                     <TextView
@@ -184,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="2"
                         android:minLines="2"
-                        android:text="(latitude: 56, \n longitude: 10)" />
+                        android:text="@string/coordinates" />
                 </LinearLayout>
 
             </TableRow>
@@ -201,13 +204,13 @@
                 android:id="@+id/Bank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bank" />
+                android:text="@string/bank_name" />
 
             <TextView
                 android:id="@+id/Bank_i"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jyske Bank, Hjørring"
+                android:text="@string/bank"
                 android:textStyle="bold" />
 
             <TextView
@@ -216,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:focusable="false"
-                android:text="www.jyskebank.dk"
+                android:text="@string/url"
                 android:textColor="#0547B3" />
 
             <TextView
@@ -224,14 +227,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
-                android:text="Phone:" />
+                android:text="@string/phone_name" />
 
             <TextView
                 android:id="@+id/Phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:text="+4589893300"
+                android:text="@string/phone"
                 android:textStyle="bold" />
         </LinearLayout>
 

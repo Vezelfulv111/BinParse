@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 
 
 class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAdapter() {
@@ -25,8 +24,8 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent:ViewGroup?): View {
-        var convertView: View? = convertView
+    override fun getView(position: Int, View: View?, parent:ViewGroup?): View {
+        var convertView: View? = View
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_element, parent, false)
         }
@@ -75,7 +74,7 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
             if (items[position].url != "?" && items[position].url.isNotEmpty()) {
                 var url =  items[position].url
                 if (!url.startsWith("https://") && !url.startsWith("http://")) {//проверка на тип ссылки
-                    url = "http://$url";
+                    url = "http://$url"
                 }
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)

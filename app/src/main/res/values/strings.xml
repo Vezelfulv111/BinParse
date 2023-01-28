@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">BinParse</string>
+
+    <string name="storageName">BinFile.dac</string>
+    <string name="coordinates">(latitude: 56, \n longitude: 10)</string>
+    <string name="country">🇩🇰 Denmark</string>
+    <string name="luhn">Yes/No</string>
+    <string name="cardlength">16</string>
+    <string name="luhn_name">Luhn</string>
+    <string name="length_name">Length</string>
+    <string name="county_name">County</string>
+    <string name="cardnumber">CardNumber</string>
+    <string name="prepaired">yes/no</string>
+    <string name="brand">Visa/Dankort</string>
+    <string name="prepaired_name">Prepaired</string>
+    <string name="type">Debit/Credit</string>
+    <string name="scheme_visa">Visa</string>
+    <string name="type_name">Type</string>
+    <string name="scheme_name">Scheme</string>
+    <string name="phone_name">Phone:</string>
+    <string name="phone">+4589893300</string>
+    <string name="url">www.jyskebank.dk</string>
+    <string name="bank">Jyske Bank, Hjørring</string>
+    <string name="bank_name">Bank</string>
+    <string name="brand_name">Brand</string>
+    <string name="HintWhatToDo">Введите Bin карты - первые цифры:</string>
+    <string name="hint_edittext">123456</string>
+    <string name="Button_enter">Ввод</string>
+    <string name="bincardimage">BinCardImage</string>
+    <string name="deleteimage">DeleteImage</string>
 </resources>

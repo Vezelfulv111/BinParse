@@ -34,7 +34,7 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
         val scheme= convertView?.findViewById(R.id.Scheme_i) as TextView
         scheme.text = items[position].scheme
         val type = convertView.findViewById(R.id.Type_i) as TextView
-        type.text = items[position].scheme
+        type.text = items[position].type
         val brand = convertView.findViewById(R.id.Brand_i) as TextView
         brand.text = items[position].brand
         val prepaid = convertView.findViewById(R.id.Prepaired_i) as TextView
@@ -83,7 +83,19 @@ class ListAdapter(var context: Context, var items: ArrayList<InfoBin>) : BaseAda
             }
         }
 
-
+        //переход на карты
+        coordinates.setOnClickListener() {
+            if (items[position].coordinatesURL.isNotEmpty()) {
+                val gmmIntentUri = Uri.parse(items[position].coordinatesURL)
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                //мой телефон не поддерживает гугл сервисы, в том числе гугл карты
+                //поэтому в качестве package я выбрал яндекс карты
+                mapIntent.setPackage("ru.yandex.yandexmaps")
+                mapIntent.resolveActivity(context.packageManager)?.let {
+                    context.startActivity(mapIntent)
+                }
+            }
+        }
 
         return convertView
     }

@@ -3,7 +3,7 @@ package com.binparse
 import org.json.JSONObject
 import java.io.Serializable
 
-//Сериализация добавлена для записи и чтения из файла
+//Serializable добавлен для записи и чтения из файла
 class InfoBin() : Serializable {
     var scheme: String = "?"
     var type: String = "?"
@@ -16,6 +16,7 @@ class InfoBin() : Serializable {
 
     var coutryName: String = "?"
     var coordinates: String = "?"
+    var coordinatesURL: String = ""
 
     var bankname: String = "?"
     var url: String = "?"
@@ -63,7 +64,10 @@ class InfoBin() : Serializable {
             if (country.has("longitude") && !country.isNull("longitude")) {
                 longitude = country.get("longitude").toString()
             }
-            coordinates = "latitude$latitude;longitude$longitude"
+            if (latitude.isNotEmpty() && longitude.isNotEmpty()) {
+                coordinates = "latitude$latitude;longitude$longitude"
+                coordinatesURL = "geo:$latitude, $longitude"//переменная координат для перехода по ссылке
+            }
         }
 
         if (Data.has("number") && !Data.isNull("number")) {

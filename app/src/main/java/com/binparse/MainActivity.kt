@@ -1,12 +1,18 @@
 package com.binparse
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import okhttp3.*
+import com.google.gson.JsonObject
+import com.google.gson.internal.LinkedTreeMap
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.*
 
 
@@ -45,40 +51,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+
     //функция для обработки API запроса
     private fun updateBin(num: UInt, infoBin: ArrayList<InfoBin>, listAdapter: ListAdapter) {
-        val client = OkHttpClient()
-        val request: Request = Request.Builder()
-            .url("https://lookup.binlist.net/$num")
-            //.url("https://lookup.binlist.net/45332")
-            .get()
-            .addHeader("X-RapidAPI-Key", "SIGN-UP-FOR-KEY")
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    if (!response.isSuccessful) {
-                        throw IOException("Unexpected code $response")
-                    }
-                    else {
-                        val str = response.body()!!.string()
-                        val jsonData = JSONObject(str)
-                        val infobin2 = InfoBin()
-                        infobin2.updateBin(jsonData)//парсим данные json
-                        infoBin.add(infobin2)//добавляем данные в ArrayList
-                        runOnUiThread {//запуск в основном потоке
+
+        RetrofitApi.apiService.getData("https://lookup.binlist.net/$num").enqueue(object: Callback<Any> {
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                val linkedMap = response.body() as LinkedTreeMap<*,*>
+                val jsonData: JSONObject = JSONObject(linkedMap)
+                val infobin2 = InfoBin()
+                infobin2.updateBin(jsonData)//парсим данные json
+                infoBin.add(infobin2)//добавляем данные в ArrayList
+                runOnUiThread {//запуск в основном потоке
                             listAdapter.notifyDataSetChanged()
                             writetoFile(resources.getString(R.string.storageName), infoBin)
-                        }
-                    }
                 }
+            }
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d(TAG, "onFailure: ${t.message}")
             }
         })
 
+
     }
+
     private fun readFromFile(BinFileName: String) : ArrayList<InfoBin> {
         var infoBin =  ArrayList<InfoBin>()
         val file = File(this.filesDir, BinFileName)
